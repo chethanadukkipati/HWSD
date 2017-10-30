@@ -67,9 +67,18 @@ for (int i=1;i<listelements.size()+1;i++)
 	  arr[i]=listelements.get(i-1);
 
 if(typeelement.compareTo("s")==0){
-	  System.out.println(binarySearch(arr,keyelement));
+	int c=binarySearch(arr,keyelement);
+	if(c==-1)
+	  System.out.println("0");
+	else
+	System.out.println("1")	;
 }else if(typeelement.compareTo("i")==0){
-	System.out.println(binarySearch(arr,keyelement));
+	int c1=binarySearch(arr,keyelement);
+	if(c1==-1)
+	  System.out.println("0");
+	else
+	System.out.println("1")	;
+	
 }
 }
 catch( ParseException exp ) {
