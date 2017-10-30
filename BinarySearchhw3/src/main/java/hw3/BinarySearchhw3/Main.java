@@ -9,7 +9,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-public class BinarySearch{
+public class Main{
 	 
 	public static int binarySearch( Comparable [ ] arr, Comparable key )
   {
@@ -34,19 +34,38 @@ public class BinarySearch{
 
 
 public static void main(String[] args) throws Exception {
-	
-   
-Options options = new Options();
 
-Option type = new Option("type", "type", true, "data type ");
-options.addOption(type);
+	Options options = new Options();
+	Option type = Option.builder("Type")
+			.required()
+			.longOpt("type")
+			.desc("specifies the type of input: 'i' for integer and 's' for string")
+			.hasArg()
+			.argName("TYPE")
+			.build();
+			options.addOption( type );
 
-Option key = new Option("key", "key", true, "key element");
-options.addOption(key);
+			Option key = Option.builder("Key")
+			.required()
+			.longOpt("key")
+			.desc("specifies the element to be searched in the list")
+			.hasArg()
+			.argName("KEY")
+			.build();
+			options.addOption( key );
 
-Option list = new Option("list", "list", true, "list");
 
-options.addOption(list);
+			Option list = Option.builder("List")
+			.required()
+			.longOpt("list")
+			.desc("specifies the list of sorted integer or strings")
+			.hasArgs()
+			.argName("LIST")
+			.build();
+			options.addOption( list );
+
+
+
 
 CommandLineParser commandLineParser = new DefaultParser();
 
@@ -56,24 +75,19 @@ commandLine = commandLineParser.parse(options, args);
 
 String typeelement = commandLine.getOptionValue("type");
 String keyelement = commandLine.getOptionValue("key");
-String element = commandLine.getOptionValue("list");
-List<String> listelements = commandLine.getArgList();
+String [] elements = commandLine.getOptionValues("list");
 
 
-String [ ] arr = new String [listelements.size()+1];
-arr[0]=element;
 
-for (int i=1;i<listelements.size()+1;i++)
-	  arr[i]=listelements.get(i-1);
 
 if(typeelement.compareTo("s")==0){
-	int c=binarySearch(arr,keyelement);
+	int c=binarySearch(elements,keyelement);
 	if(c==-1)
 	  System.out.println("0");
 	else
 	System.out.println("1")	;
 }else if(typeelement.compareTo("i")==0){
-	int c1=binarySearch(arr,keyelement);
+	int c1=binarySearch(elements,keyelement);
 	if(c1==-1)
 	  System.out.println("0");
 	else
@@ -91,4 +105,5 @@ catch( ParseException exp ) {
 }
 
 }
+
 
